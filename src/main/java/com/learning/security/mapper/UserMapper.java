@@ -15,7 +15,7 @@ public class UserMapper {
         userDTO.setId(user.getId());
         userDTO.setName(user.getName());
         userDTO.setPassword(user.getPassword());
-        user.setEmail(user.getEmail());
+        userDTO.setEmail(user.getEmail());
         List<RoleDTO> roleDTOS = new ArrayList<>();
         for (Role role : user.getRoles()) {
             roleDTOS.add(RoleMapper.toRoleDTO(role));
