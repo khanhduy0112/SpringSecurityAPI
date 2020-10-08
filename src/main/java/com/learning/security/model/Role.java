@@ -20,6 +20,6 @@ public class Role {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
     private List<User> users;
 }
