@@ -8,12 +8,15 @@ import java.util.Optional;
 
 public interface UserService {
 
-    List<User> findAll();
+    List<UserDTO> findAll();
 
-    Optional<User> findById(Integer id);
+    UserDTO findById(Integer id);
 
-    void save(User user);
+    void save(UserDTO user);
 
     void deleteById(Integer id);
+
+    List<UserDTO> findByNameContains(String name);
+
 
 }
