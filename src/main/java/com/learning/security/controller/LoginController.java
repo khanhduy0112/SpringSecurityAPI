@@ -37,11 +37,12 @@ public class LoginController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             //create token
+            final String SECRET = "NGUYENKHANHDUYNGUYENKHANHDUYNGUYENKHANHDUY";
             String token = Jwts.
                     builder()
                     .setSubject(userLogin.getUsername())
                     .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + 365232323l))
-                    .signWith(Keys.hmacShaKeyFor("NGUYENKHANHDUYNGUYENKHANHDUYNGUYENKHANHDUY".getBytes()))
+                    .signWith(Keys.hmacShaKeyFor(SECRET.getBytes()))
                     .compact();
             return new ResponseEntity<String>(token, HttpStatus.OK);
         } catch (AuthenticationException e) {
