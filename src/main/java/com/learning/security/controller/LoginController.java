@@ -2,8 +2,6 @@ package com.learning.security.controller;
 
 import com.learning.security.dto.UserLogin;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.InvalidKeyException;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +26,8 @@ public class LoginController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<String> getJwtToken(@RequestBody UserLogin userLogin) {
-        Authentication authentication = null;
+    public ResponseEntity<String> getJwtToken(@RequestBody  UserLogin userLogin) {
+        Authentication authentication;
         try {
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword())
@@ -41,13 +39,11 @@ public class LoginController {
             String token = Jwts.
                     builder()
                     .setSubject(userLogin.getUsername())
-                    .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + 365232323l))
+                    .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + 365232323))
                     .signWith(Keys.hmacShaKeyFor(SECRET.getBytes()))
                     .compact();
-            return new ResponseEntity<String>(token, HttpStatus.OK);
+            return new ResponseEntity<>(token, HttpStatus.OK);
         } catch (AuthenticationException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         return new ResponseEntity<>("user name or password is incorrect!!", HttpStatus.BAD_REQUEST);
